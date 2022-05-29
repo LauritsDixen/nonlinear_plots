@@ -41,8 +41,6 @@ def make_fig(result, R):
         margin=dict(l=20, r=20, t=20, b=20),
     )
 
-    
-    
     fig.add_trace(
         go.Scatter(x=[0,1], y=[0,1], mode='lines', line={'color':'black'}),
         row=1, col=2
