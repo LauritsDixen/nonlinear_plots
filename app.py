@@ -21,14 +21,14 @@ def logmap_site():
         n = st.number_input('number of points', min_value=2, max_value=None, value=50, step=1, format='%i')
     with col2:
         R = st.slider('R', 0.0, 4., 3.27, step=0.01)
-        n_trans =  st.number_input('transient points', min_value=0, max_value=n, value=20, step=1, format='%i')
+        n_trans = st.number_input('transient points', min_value=0, max_value=n, value=0, step=1, format='%i', key='n_trans')
 
     # Run the sim
     data = logmap_sim(n, x0, R)
 
-    transient = st.checkbox('Show transient data', value=True)
-    n_trans = 0 if transient else n_trans
-    
+    # Check for transience
+    n_trans = st.session_state['n_trans']
+
     if 'n_trans' not in st.session_state:
         st.session_state['n_trans'] = n_trans
 
@@ -73,7 +73,7 @@ def lorenz_site():
     inits = np.array((1., 1., 1))
     timesteps = 10000
     stepsize = 0.005
-    n_trans = 200
+    n_trans = 0
 
     # Run the sim and plot
     data = run_lorenz(timesteps, stepsize, inits, funcs)
